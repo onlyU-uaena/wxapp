@@ -7,12 +7,6 @@ import configStore from './store'
 
 import './app.scss'
 
-// 如果需要在 h5 环境中开启 React Devtools
-// 取消以下注释：
-// if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
-//   require('nerv-devtools')
-// }
-
 const store = configStore()
 
 class App extends Component {
@@ -24,6 +18,7 @@ class App extends Component {
    * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
    * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
    */
+  // eslint-disable-next-line react/sort-comp
   config: Config = {
     pages: [
       'pages/index/index'

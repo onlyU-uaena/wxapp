@@ -36,7 +36,7 @@ type PageState = {}
 type IProps = PageStateProps & PageDispatchProps & PageOwnProps
 
 interface Index {
-  props: IProps;
+  props: IProps
 }
 
 @connect(({ counter }) => ({
