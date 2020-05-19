@@ -8,7 +8,7 @@ const INITIAL_STATE = {
       date: Date,
       time: Date,
       co: [], // [{"id": 1, data: {"userId": <int>, "username": <string>}}]
-      calss: 0, // 0, 1, 2 今天, 本周, 本月
+      class: 0, // 0, 1, 2 今天, 本周, 本月
       finish: false
     }
   ]
