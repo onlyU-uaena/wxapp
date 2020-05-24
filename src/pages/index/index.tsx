@@ -3,7 +3,7 @@ import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 
-import { add, minus, asyncAdd } from '../../actions/counter'
+import { add, deleter, finish, sync } from '../../actions/todo'
 
 import './index.scss'
 
@@ -18,15 +18,24 @@ import './index.scss'
 // #endregion
 
 type PageStateProps = {
-  counter: {
-    num: number
-  }
+  todo: [
+    {
+      id: 0
+      name: ""
+      date: Date
+      time: Date
+      co: [] // [{"id": 1, data: {"userId": <int>, "username": <string>}}]
+      class: 0 // 0, 1, 2 今天, 本周, 本月
+      finish: false
+    }
+  ]
 }
 
 type PageDispatchProps = {
   add: () => void
-  dec: () => void
-  asyncAdd: () => any
+  deleter: () => void
+  finish: () => void
+  sync: () => void
 }
 
 type PageOwnProps = {}
@@ -39,17 +48,20 @@ interface Index {
   props: IProps
 }
 
-@connect(({ counter }) => ({
-  counter
+@connect(({ todo }) => ({
+  todo
 }), (dispatch) => ({
   add () {
     dispatch(add())
   },
-  dec () {
-    dispatch(minus())
+  deleter () {
+    dispatch(deleter())
   },
-  asyncAdd () {
-    dispatch(asyncAdd())
+  finish () {
+    dispatch(finish())
+  },
+  sync () {
+    dispatch(sync())
   }
 }))
 class Index extends Component {
@@ -62,7 +74,7 @@ class Index extends Component {
    * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
    */
     config: Config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '家事'
   }
 
   componentWillReceiveProps (nextProps) {
@@ -79,9 +91,9 @@ class Index extends Component {
     return (
       <View className='index'>
         <Button className='add_btn' onClick={this.props.add}>+</Button>
-        <Button className='dec_btn' onClick={this.props.dec}>-</Button>
-        <Button className='dec_btn' onClick={this.props.asyncAdd}>async</Button>
-        <View><Text>{this.props.counter.num}</Text></View>
+        <Button className='deleter_btn' onClick={this.props.deleter}>-</Button>
+        <Button className='finish_btn' onClick={this.props.finish}>async</Button>
+        <View>{this.props.todo}</View>
         <View><Text>Hello, World</Text></View>
       </View>
     )
